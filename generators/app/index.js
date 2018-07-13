@@ -4,13 +4,24 @@ const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
 const path = require('path');
+const ROOT_DIRECTORY = process
+  .cwd()
+  .split(path.sep)
+  .pop();
 
 module.exports = class extends Generator {
   // Configurations will be loaded here.
+
   prompting() {
     // Have Yeoman greet the user.
     this.log(
-      yosay(`Welcome to the delightful ${chalk.red('webpack-simple static')} generator!`)
+      yosay(
+        `${chalk.hex('#1395ba')(
+          `Welcome to the fucking amazing and awesome \n${chalk.hex('#EFD460')(
+            'gulp-simple static'
+          )} generator!`
+        )}`
+      )
     );
 
     const prompts = [
@@ -19,10 +30,7 @@ module.exports = class extends Generator {
         name: 'name',
         message: 'Your project name',
         // Defaults to the project's folder name if the input is skipped
-        default: process
-          .cwd()
-          .split(path.sep)
-          .pop()
+        default: ROOT_DIRECTORY
       }
     ];
     return this.prompt(prompts).then(answer => {
@@ -49,6 +57,39 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.npmInstall();
+    this.npmInstall().then(() => {
+      if (this.props.name === ROOT_DIRECTORY) {
+        this.log(
+          yosay(
+            `${chalk.hex('#1395ba')(
+              `Thank you for using ${chalk.hex('#EFD460')(
+                'gulp-simple static'
+              )} generator template!`
+            )}`
+          ),
+          `\n - ${chalk.hex('##f16c20')(
+            'run gulp'
+          )} to start the local server in ${chalk.hex('#1395ba')(
+            'http://localhost:8080'
+          )}`
+        );
+      } else {
+        this.log(
+          yosay(
+            `${chalk.hex('#1395ba')(
+              `Thank you for using ${chalk.hex('#EFD460')(
+                'gulp-simple static'
+              )} generator template!`
+            )}`
+          ),
+          `\n - cd ${chalk.hex('##f16c20')(`${this.props.name}`)}`,
+          `\n - run ${chalk.hex('##f16c20')(
+            'gulp'
+          )} to start the local server in ${chalk.hex('#1395ba')(
+            'http://localhost:8080'
+          )}`
+        );
+      }
+    });
   }
 };
