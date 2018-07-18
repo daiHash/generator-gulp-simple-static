@@ -52,7 +52,12 @@ module.exports = class extends Generator {
         name: this.props.name
       }
     );
+    this.fs.copy(this.templatePath('_babelrc'), this.destinationPath('.babelrc'));
     this.fs.copy(this.templatePath('gulpfile.js'), this.destinationPath('gulpfile.js'));
+    this.fs.copy(
+      this.templatePath('webpack.config.js'),
+      this.destinationPath('webpack.config.js')
+    );
     this.fs.copy(this.templatePath('src'), this.destinationPath('src'));
   }
 
@@ -67,11 +72,7 @@ module.exports = class extends Generator {
               )} generator template!`
             )}`
           ),
-          `\n - ${chalk.hex('##f16c20')(
-            'run gulp'
-          )} to start the local server in ${chalk.hex('#1395ba')(
-            'http://localhost:8080'
-          )}`
+          `\n - ${chalk.hex('##f16c20')('npm run dev')} to start the local server`
         );
       } else {
         this.log(
@@ -83,11 +84,7 @@ module.exports = class extends Generator {
             )}`
           ),
           `\n - cd ${chalk.hex('##f16c20')(`${this.props.name}`)}`,
-          `\n - run ${chalk.hex('##f16c20')(
-            'gulp'
-          )} to start the local server in ${chalk.hex('#1395ba')(
-            'http://localhost:8080'
-          )}`
+          `\n - run ${chalk.hex('##f16c20')('npm run dev')} to start the local server`
         );
       }
     });
