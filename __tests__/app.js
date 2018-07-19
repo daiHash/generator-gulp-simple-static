@@ -11,6 +11,6 @@ describe('generator-gulp-simple-static:app', () => {
   });
 
   it('creates files', () => {
-    assert.file(['dummyfile.txt']);
+    assert.file(['gulpfile.js', 'package.json', 'webpack.config.js', '.babelrc', 'src']);
   });
 });
