@@ -1,14 +1,16 @@
 'use strict';
-// Const path = require('path');
+const path = require('path');
 const assert = require('yeoman-assert');
-// Const helpers = require('yeoman-test');
+const helpers = require('yeoman-test');
 
 describe('generator-gulp-simple-static:app', () => {
-  // BeforeAll(() => {
-  //   return helpers.run(path.join(__dirname, '../generators/app'));
-  // });
+  beforeAll(() => {
+    return helpers
+      .run(path.join(__dirname, '../generators/app'))
+      .withPrompts({ someAnswer: true });
+  });
 
   it('creates files', () => {
-    assert.file(['index.html']);
+    assert.file(['gulpfile.js', 'package.json', 'webpack.config.js', '.babelrc', 'src']);
   });
 });
